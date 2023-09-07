@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="tab_movie">Movies</string>
+    <string name="tab_people">People</string>
+    <string name="tab_tv">TV</string>
+    <string name="back_button">Back Button</string>
+    <string name="more_options_button">More Options</string>
+    <string name="place_holder">Place Holder</string>
+    <string name="navigation_drawer">Navigation Drawer</string>
+    <string name="actor_coming_soon">Coming soon. Actors detail will be displayed here</string>
+    <string name="tv_series_coming_soon">Coming soon. TV series detail will be displayed here</string>
+    <string name="error_no_internet">You\'re offline. Please check your network connection and retry</string>
+    <string name="error_network_timeout">Timeout. Please check your network connection and retry</string>
+    <string name="error_unknown">Unknown Error. Please retry</string>
+    <string name="search_movie">Search movie</string>
+    <string name="search">Search</string>
+    <string name="retry">Retry</string>
+    <string name="fetch_movie">Fetching Movie</string>
+    <string name="no_movies_found">No movies found</string>
+</resources>

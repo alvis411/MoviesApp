@@ -1,0 +1,70 @@
+package com.quypham.assignment.ui.utils
+
+import android.graphics.Rect
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.paging.compose.LazyPagingItems
+import androidx.window.layout.FoldingFeature
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+/**
+ * Information about the posture of the device
+ */
+sealed interface DevicePosture {
+    object NormalPosture : DevicePosture
+
+    data class BookPosture(
+        val hingePosition: Rect
+    ) : DevicePosture
+
+    data class Separating(
+        val hingePosition: Rect,
+        var orientation: FoldingFeature.Orientation
+    ) : DevicePosture
+}
+
+@OptIn(ExperimentalContracts::class)
+fun isBookPosture(foldFeature: FoldingFeature?): Boolean {
+    contract { returns(true) implies (foldFeature != null) }
+    return foldFeature?.state == FoldingFeature.State.HALF_OPENED &&
+        foldFeature.orientation == FoldingFeature.Orientation.VERTICAL
+}
+
+@OptIn(ExperimentalContracts::class)
+fun isSeparating(foldFeature: FoldingFeature?): Boolean {
+    contract { returns(true) implies (foldFeature != null) }
+    return foldFeature?.state == FoldingFeature.State.FLAT && foldFeature.isSeparating
+}
+
+/**
+ * Different type of navigation supported by app depending on device size and state.
+ */
+enum class AppNavigationType {
+    BOTTOM_NAVIGATION, NAVIGATION_RAIL, PERMANENT_NAVIGATION_DRAWER
+}
+
+/**
+ * Different position of navigation content inside Navigation Rail, Navigation Drawer depending on device size and state.
+ */
+enum class AppNavigationContentPosition {
+    TOP, CENTER
+}
+
+/**
+ * App Content shown depending on device size and state.
+ */
+enum class AppContentType {
+    SINGLE_PANE, DUAL_PANE
+}
+
+@Composable
+fun <T : Any> LazyPagingItems<T>.rememberLazyListState(): LazyListState {
+    return when (itemCount) {
+        // Return a different LazyListState instance.
+        0 -> remember { LazyListState(0, 0) }
+        // Return rememberLazyListState (normal case).
+        else -> androidx.compose.foundation.lazy.rememberLazyListState()
+    }
+}
